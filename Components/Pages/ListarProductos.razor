@@ -1,0 +1,47 @@
+﻿@page "/listprod"
+@using GestionLaura.Clases
+@using Microsoft.AspNetCore.Components.Forms
+@using GestionLaura.Logica
+
+<div class="Container">
+    <table>
+        @foreach(var t in logica.Prod)
+        {
+            <tr>
+                <td>@t.Productos</td>
+                @if (t.Tipo.Equals(Tipo.Promedio))
+                {
+                    <td>@t.StockProd.Cantidad</td>
+                    <td>@t.StockProd.Precio</td>
+                }
+                @if (t.Tipo.Equals(Tipo.Fifo))
+                {
+                    @foreach(var a in t.StocksFIfo)
+                    {
+                        <td>@a.Cantidad</td>
+                        <td>@a.Precio</td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+@code {
+    private LogProductos logica = new LogProductos();
+    public Producto? prod;
+    protected override async void OnInitialized()
+    {
+        await logica.Cargar();
+        base.OnInitialized();
+    }
+    public async Task Eliminar(Producto p)
+    {
+        prod = p;
+        await logica.EliminarProd(p);
+    }
+    public async Task Descargar(){
+        await logica.DescargarProductos();
+        
+    }
+}

@@ -1,0 +1,42 @@
+﻿@page "/newcli"
+@using GestionLaura.Clases
+@using GestionLaura.Logica
+@inject NavigationManager nav
+
+
+
+<div class="container">
+    <h3>Nuevo cliente</h3>
+    <div>
+        
+        <EditForm OnSubmit="@Guardar" Model="@model">
+            
+            <div class="row">
+                <label>Numero de identificacion</label>
+                <InputText id="Id" @bind-Value="model.Id"/>
+            </div>
+            <div class="row">
+                <label>Nombre</label>
+                <InputText id="Name" @bind-Value="model.Name"/>
+            </div>
+            <div class="row">
+                <label>Apellido</label>
+                <InputText id="SurName" @bind-Value="model.SurName"/>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private Legajo model = new Legajo();
+    private LogLegajo logica = new LogLegajo();
+    public async Task Guardar(){
+        
+        await logica.NuevoLegajo(model);
+        nav.NavigateTo("/");
+        
+    }
+}

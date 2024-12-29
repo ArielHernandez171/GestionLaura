@@ -1,0 +1,88 @@
+﻿@page "/regsrv"
+@using Microsoft.AspNetCore.Components.Forms
+@using GestionLaura.Clases
+@using GestionLaura.Logica
+@using System.ComponentModel.DataAnnotations
+
+<h3>Registro Servicios</h3>
+<div class="container">
+    <div class="card">
+        
+            <EditForm Model="@models" OnSubmit="@buscar" contextmenu="@editContext" >
+                
+                <div class="card">
+                    <div class="card">
+                        <label>Ingrese la fecha de inicio</label>
+                        <InputDate  inputmode="numeric" id="dateBeg" @bind-Value="models.dateBeg" />
+                    </div>
+                    <div class="card">
+                        <label>Ingrese la fecha final</label>
+                        <InputDate  inputmode="numeric" id="deteEnd" @bind-Value="models.dateEnd" />
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-group-lg" type="submit">Buscar</button>
+                    </div>
+                </div>
+                
+            </EditForm>
+            @if(servicios!=null){
+                @foreach (RegistroServs t in servicios)
+                {
+                    <div class="row-cols-auto">
+                        <p>@t.Fecha</p>
+                        <p>@t.Costo</p>
+                        <p>@t.Concepto</p>
+                    </div>
+                }
+                <div class="container">
+                    <p>El costo total del periodo fue de: @total en @clientes clientes</p>
+                </div>
+                <button @onclick="descargar" class="btn btn-primary"></button>
+            }
+            @if(clientes==0&&servicios!=null){
+                <h3>No se encontraron servicios</h3>
+            }
+        </div>
+</div>
+
+@code {
+    public float total=0;
+    public int clientes = 0;
+    public Model models=new Model();
+    public List<RegistroServs>? servicios=null;
+    private LogServ logica = new LogServ();
+    public EditContext? editContext;
+    private async Task buscar()
+    {
+        if (models.dateBeg <= models.dateEnd)
+            servicios = await logica.ObtenerServiDate(models.dateBeg, models.dateEnd);
+        else
+            await Application.Current.MainPage.DisplayAlert("Error","Ingreso una fecha de inicio posterior a la de fin","OK");
+        if(servicios!=null){
+            foreach(RegistroServs r in servicios)
+            {
+                total = total + r.Costo;
+                clientes++;
+            }
+        }
+    }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        editContext = new(models);
+    }
+    public async void descargar()
+    {
+        if (servicios != null)
+            logica.Descargardo(servicios);
+        else
+            await Application.Current.MainPage.DisplayAlert("Alerta", "Usted esta tratando de descargar un excel en blanco", "OK");
+    }
+    public class Model
+    {
+        [Required(ErrorMessage="Fecha obligatoria")]
+        public DateTime dateBeg;
+        [Required(ErrorMessage = "Fecha obligatoria")]
+        public DateTime dateEnd;
+    }
+}

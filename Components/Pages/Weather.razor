@@ -1,0 +1,61 @@
+﻿@page "/weather"
+@using GestionLaura.Clases;
+@using GestionLaura.Logica
+@inject NavigationManager nav
+<div class="card">
+    <table>
+        <tr>
+            <td>Producto</td>
+            <td>Tipo de consumo</td>
+            <td>Cantidad</td>
+            <td>Precio</td>
+        </tr>
+        @foreach (var p in logica.Prod)
+        {
+            <tr>
+                <td>@p.Productos</td>
+                <td>@p.Tipo.ToString()</td>
+                @if (p.Tipo.Equals(Tipo.Promedio))
+                {
+                    <td>@p.StockProd.Cantidad</td>
+                    <td>@p.StockProd.Precio</td>
+                }
+                @if (p.Tipo.Equals(Tipo.Fifo))
+                {
+                    @foreach(var a in p.StocksFIfo)
+                    {
+
+                        <td>@a.Cantidad</td>
+                        <td>@a.Precio</td>
+                    }
+                }
+                <td><button class="btn btn-primary" @onclick="(()=>Eliminar(p))">Eliminar</button></td>
+                <td><button class="btn btn-primary" @onclick="(()=>Sumar(p))">Actualizar</button></td>
+            </tr>
+
+        }
+    </table>
+    <button class="btn btn-primary" @onclick="Descargar">Descargar</button>
+</div>
+
+@code {
+    public LogProductos logica = new LogProductos();
+    protected override async Task OnInitializedAsync()
+    {
+        await logica.Cargar();
+    }
+    public void Sumar(Producto p){
+        string d=p.Productos;
+        nav.NavigateTo($"/addprod/{d}");
+        
+    }
+    public async Task Eliminar(Producto p)
+    {
+        logica.Prod.Remove(p);
+        await logica.Guardar();
+    }
+    public async Task Descargar(){
+        await logica.DescargarProductos();
+        
+    }
+}

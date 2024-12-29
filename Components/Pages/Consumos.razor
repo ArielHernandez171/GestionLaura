@@ -1,0 +1,97 @@
+﻿@using GestionLaura.Logica
+@using GestionLaura.Clases
+
+@page "/Consumo"
+<h3>Consumos</h3>
+<div class="container">
+    @if(stocks.Count()!=0){
+        @foreach(var p in stocks)
+        {
+            <table>
+                <pr>
+                    <pd>@p.Productos</pd>
+                    <pd>@p.StockProd.Cantidad</pd>
+                    <EditForm Model="@prodStock" OnSubmit="@(()=>Sumar(p.Productos))">
+                        <pd><InputNumber @bind-value="@prodStock.Cantidad"/></pd>
+                        <pd><button type="submit" class="btn btn-primary">Sumar</button></pd>
+                    </EditForm>
+                </pr>
+            </table>            
+        }
+        <EditForm Model="@registro" OnSubmit="@Guardar">
+            <label>Concepto de servicio</label>
+            <InputText @bind-Value="@registro.Concepto"/>
+            <button class="btn btn-primary">Guardar</button>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private LogServ log = new LogServ();
+    private LogProductos logProd = new LogProductos();
+    public ProdStock prodStock = new ProdStock();
+    public List<Producto> stocks = new List<Producto>();
+    public List<Producto> productos = new List<Producto>();
+    private RegistroServs registro = new RegistroServs();
+    float i = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await logProd.Cargar();
+        foreach(Producto pr in logProd.Prod)
+        {
+            if(pr.Tipo.Equals(Tipo.Promedio)){
+                stocks.Add(pr);
+            }
+            else
+            {
+                pr.StockProd = new ProdStock();
+                foreach(var P in pr.StocksFIfo){
+                    pr.StockProd.Cantidad = pr.StockProd.Cantidad + P.Cantidad;
+                }
+                stocks.Add(pr);
+            }
+        }
+        await base.OnInitializedAsync();
+    }
+    protected async void Sumar(string n)
+    {
+        Producto a = new Producto();
+
+        if (prodStock.Cantidad > stocks.Where(s => s.Productos == n).First().StockProd.Cantidad)
+        {
+            await Application.Current.MainPage.DisplayAlert("Alerta","El producto no se sumo por falta de stock","OK");
+        }
+        else
+        {
+            if(Tipo.Fifo==logProd.Prod.Where(f=>f.Productos==n).First().Tipo){
+                foreach(var d in logProd.Prod.Where(f=>f.Productos==n).First().StocksFIfo){
+                    i += d.Cantidad * d.Precio;
+                    if (d.Cantidad < prodStock.Cantidad)
+                    {
+                        prodStock.Cantidad-=d.Cantidad;
+                        d.Cantidad = 0;
+                    }
+                    else
+                    {
+                        d.Cantidad -= prodStock.Cantidad;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                logProd.Prod.Where(r => r.Productos == n).First().RestarProm(prodStock);
+            }
+        }
+        registro.Costo =+ i;
+    }
+    protected async Task Guardar()
+    {
+        
+        await log.GuardarServicio(registro);
+        await logProd.Guardar();
+    }
+    
+}
+

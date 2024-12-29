@@ -1,0 +1,47 @@
+﻿@page "/addprod/{d}"
+@using GestionLaura.Clases
+@using Microsoft.AspNetCore.Components.Forms
+@inject NavigationManager nav
+@using GestionLaura.Logica
+
+<div class="container">
+<h1>Ingreso de @produc.Productos</h1>
+    <EditForm Model="@model" OnSubmit="@Guardar" >
+        <div class="row">
+            <label>Introduzca el stock a ingresar</label>
+            <InputNumber  id="Cantidad" @bind-Value="@model.Cantidad"></InputNumber>
+        </div>
+        <div class="row">
+            <label>Introduzca el precio del ingreso</label>
+            <InputNumber Min="0" id="Precio" @bind-Value="@model.Precio"></InputNumber>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+        </div>
+    </EditForm>
+</div>
+
+
+@code {
+    [Parameter]
+    public string? d{ get; set; }
+    public Producto produc=new Producto();
+    public ProdStock model=new ProdStock();
+
+    public async void Guardar()
+    {
+        LogProductos productos = new LogProductos();
+        await productos.AddProd(model,produc.Productos);
+
+        nav.NavigateTo("/");
+    }
+    protected async override void OnInitialized()
+    {
+        LogProductos p=new LogProductos();
+        await p.Cargar();   
+        produc = p.Prod.Where(s=>s.Productos.Equals(d)).First();
+        base.OnInitialized();
+        
+    }
+    
+}

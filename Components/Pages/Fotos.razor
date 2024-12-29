@@ -1,0 +1,15 @@
+﻿@page "/fotos"
+@using System.IO;
+<div class="card">
+    @foreach(var i in byt){
+        <img src="@getSouce(i)" alt="Image"/>
+    }
+</div>
+@code {
+    [Parameter]
+    public List<byte[]> byt{ get; set; }
+    private string getSouce(byte[] Imagen){
+        var base64Str = Convert.ToBase64String(Imagen);
+        return $"data:image/png;base64,{base64Str}";
+    }
+}

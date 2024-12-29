@@ -1,0 +1,48 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Gestion Laura</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="newcli">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Nuevo Cliente
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="newprod">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Nuevo Producto
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="consumo">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Nuevo Servicio
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="weather">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span>Listar Productos
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="regsrv">
+                <span class="bi bi-list" aria-hidden="true"></span> Listar Servicios
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="searchcli">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Listar Clientes
+            </NavLink>
+        </div>
+        
+    </nav>
+</div>

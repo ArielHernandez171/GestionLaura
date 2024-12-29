@@ -1,0 +1,92 @@
+﻿@using GestionLaura.Logica
+@using GestionLaura.Clases
+@using System.IO
+@using System.Runtime.InteropServices
+@using Microsoft.AspNetCore.Components.Forms
+@page "/searchcli"
+<div class="container">
+    <h1>Buscar cliente</h1>
+    <div class="card">
+
+        <EditForm OnSubmit="@buscar" Model="@legajo">
+            <div class="row">
+                <label>Id del cliente</label>
+                <InputText @bind-Value="legajo.Id"/>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </EditForm>
+    </div>
+    @if (a != false)
+    {  
+        <EditForm OnSubmit="Actualizar" Model="legajo">
+            <div class="row">
+                <label>Id del cliente</label>
+                <InputText @bind-Value="legajo.Id"/>
+            </div>
+            <div class="row">
+                <label>Nombre del cliente</label>
+                <InputText @bind-Value="legajo.Name"/>
+            </div>
+            <div class="row">
+                <label>Apellido del cliente</label>
+                <InputText @bind-Value="legajo.SurName"/>
+            </div>
+            <div class="row">
+                <label>Historial del cliente</label>
+                <InputTextArea @bind-Value="legajo.Historial"/>
+            </div>
+                <InputFile OnChange="@AgregarFoto" MaxAllowedSize="10485760" />
+            <div class="row">
+                <button @onclick="Actualizar">Actualizar</button>
+            </div>
+            <Fotos byt="@legajo.Images"></Fotos>
+            
+        </EditForm>
+       
+    }
+</div>
+
+@code {
+    protected Legajo legajo = new Legajo();
+    private LogLegajo logica = new LogLegajo();
+    bool a = false;
+    byte[]? Imag;
+    List<ImageSource> imgList= new List<ImageSource>();
+    
+    protected void Actualizar()
+    {
+        if(legajo!=null)
+            logica.ActualizarLegajos(legajo);
+    }
+    protected async Task AgregarFoto(InputFileChangeEventArgs e){
+        try
+        {
+            MemoryStream stream = new MemoryStream();
+            await e.File.OpenReadStream().CopyToAsync(stream);
+            Imag = stream.ToArray();
+            if (Imag != null && legajo != null)
+            {
+                legajo.Images.Add(Imag);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+    
+    protected async Task buscar()
+    {
+        if(legajo.Id!=""){
+            legajo = await logica.BuscarLegajo(legajo.Id);
+            if(logica.BuscarLegajo(legajo.Id)!=null){
+                a = true;
+            }
+            else{
+                await Application.Current.MainPage.DisplayAlert("Alerta","No se encontro el cliente buscado","OK");
+            }
+        }
+    }
+}
