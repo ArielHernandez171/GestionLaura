@@ -19,9 +19,21 @@
             </table>            
         }
         <EditForm Model="@registro" OnSubmit="@Guardar">
-            <label>Concepto de servicio</label>
-            <InputText @bind-Value="@registro.Concepto"/>
-            <button class="btn btn-primary">Guardar</button>
+            <div>
+                <div><label>Id del usuario</label></div>
+                <div><InputText @bind-Value="registro.ClienteId"/></div>
+            </div>
+            <div>
+                <div><label>Al momento hay un costo @i, Ingrese el precio final</label></div>
+                <div><InputNumber @bind-Value="registro.PrecioFinal"/></div>
+            </div>
+            <div>
+                <div><label>Concepto de servicio</label></div>
+                <div><InputText @bind-Value="@registro.Concepto"/></div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
         </EditForm>
     }
 </div>
@@ -34,7 +46,7 @@
     public List<Producto> productos = new List<Producto>();
     private RegistroServs registro = new RegistroServs();
     float i = 0;
-
+    public List<string> aux=new List<string>();
     protected override async Task OnInitializedAsync()
     {
         await logProd.Cargar();
@@ -64,6 +76,7 @@
         }
         else
         {
+            aux.Add(n);
             if(Tipo.Fifo==logProd.Prod.Where(f=>f.Productos==n).First().Tipo){
                 foreach(var d in logProd.Prod.Where(f=>f.Productos==n).First().StocksFIfo){
                     i += d.Cantidad * d.Precio;
@@ -81,14 +94,25 @@
             }
             else
             {
+                i += logProd.Prod.Where(r => r.Productos == n).First().StockProd.Precio*prodStock.Cantidad;
                 logProd.Prod.Where(r => r.Productos == n).First().RestarProm(prodStock);
+
             }
         }
         registro.Costo =+ i;
     }
     protected async Task Guardar()
     {
-        
+
+        RegistroPersonal a = new RegistroPersonal();
+        a.Fecha = DateTime.Today;
+        string z = "";
+        foreach(var e in aux)
+        {
+            z = z + " " + e;
+        }
+        a.Servicios.Add(z);
+        registro.registroPersonals.Add(a);
         await log.GuardarServicio(registro);
         await logProd.Guardar();
     }

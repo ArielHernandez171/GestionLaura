@@ -7,51 +7,86 @@
 <h3>Registro Servicios</h3>
 <div class="container">
     <div class="card">
-        
-            <EditForm Model="@models" OnSubmit="@buscar" contextmenu="@editContext" >
-                
+
+        <EditForm Model="@models" OnSubmit="@buscar" >
+
+            <div class="card">
                 <div class="card">
-                    <div class="card">
-                        <label>Ingrese la fecha de inicio</label>
-                        <InputDate  inputmode="numeric" id="dateBeg" @bind-Value="models.dateBeg" />
-                    </div>
-                    <div class="card">
-                        <label>Ingrese la fecha final</label>
-                        <InputDate  inputmode="numeric" id="deteEnd" @bind-Value="models.dateEnd" />
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-group-lg" type="submit">Buscar</button>
-                    </div>
+                    <label>Ingrese la fecha de inicio</label>
+                    <InputDate  inputmode="numeric" id="dateBeg" @bind-Value="models.dateBeg" />
                 </div>
-                
-            </EditForm>
-            @if(servicios!=null){
-                @foreach (RegistroServs t in servicios)
-                {
-                    <div class="row-cols-auto">
-                        <p>@t.Fecha</p>
-                        <p>@t.Costo</p>
-                        <p>@t.Concepto</p>
-                    </div>
-                }
-                <div class="container">
-                    <p>El costo total del periodo fue de: @total en @clientes clientes</p>
+                <div class="card">
+                    <label>Ingrese la fecha final</label>
+                    <InputDate  inputmode="numeric" id="deteEnd" @bind-Value="models.dateEnd" />
                 </div>
-                <button @onclick="descargar" class="btn btn-primary"></button>
-            }
-            @if(clientes==0&&servicios!=null){
-                <h3>No se encontraron servicios</h3>
-            }
-        </div>
+                <div class="row">
+                    <button class="btn btn-group-lg" type="submit">Buscar por fecha</button>
+                </div>
+            </div>
+
+        </EditForm>
+        <EditForm OnSubmit="BuscarId" Model="id">
+            <div class="container-fluid">
+                <div>
+                    <label>Buscar por Id</label>
+                    <InputText @bind-Value="id"/>
+                </div>
+                <div>
+                    <button type="submit"Buscar por nombre</button>
+                </div>
+            </div>
+        </EditForm>
+        @if(servicios!=null){
+            <table>
+                <tr>
+                    <td>Fecha</td>
+                    <td>Concepto</td>
+                    <td>Costo</td>
+                    <td>Precio</td>
+                    <td>Id del cliente</td>
+                    <td>Servicio</td>
+                </tr>
+                <tr>
+                    @foreach (RegistroServs t in servicios)
+                    {
+
+                        <td>@t.Fecha</td>
+                        <td>@t.Concepto</td>
+                        <td>@t.Costo</td>
+                        <td>@t.PrecioFinal</td>
+                        <td>@t.ClienteId</td>
+                        <td>
+                            <p>@Historial(t.registroPersonals,t.Fecha)</p>
+                        </td>
+                    }
+                </tr>
+            </table>
+            <div class="container">
+                <h1>El costo total del periodo fue de: @total en @clientes clientes con unaganancia de @i</h1>
+            </div>
+            <div>
+                <button @onclick="descargar" class="btn btn-primary">Buscar</button>
+            </div>
+        }
+        @if(clientes==0&&servicios!=null){
+            <h3>No se encontraron servicios</h3>
+        }
+    </div>
 </div>
 
 @code {
     public float total=0;
     public int clientes = 0;
+    float i = 0;
+    public string id = "";
+    public string s = "";
     public Model models=new Model();
     public List<RegistroServs>? servicios=null;
     private LogServ logica = new LogServ();
-    public EditContext? editContext;
+    public async Task BuscarId()
+    {
+        
+    }
     private async Task buscar()
     {
         if (models.dateBeg <= models.dateEnd)
@@ -63,13 +98,14 @@
             {
                 total = total + r.Costo;
                 clientes++;
+                i+=r.PrecioFinal;
             }
+
         }
     }
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        editContext = new(models);
     }
     public async void descargar()
     {
@@ -78,11 +114,21 @@
         else
             await Application.Current.MainPage.DisplayAlert("Alerta", "Usted esta tratando de descargar un excel en blanco", "OK");
     }
+    public string Historial(List<RegistroPersonal> l, DateTime f)
+    {
+        string c = "";
+        foreach (var a in l)
+        {
+            if(a.Fecha==f)
+                c = c + " " + a.Servicios;
+        }
+        return $"{ c}";
+    }
     public class Model
     {
         [Required(ErrorMessage="Fecha obligatoria")]
-        public DateTime dateBeg;
+        public DateTime dateBeg=DateTime.Today;
         [Required(ErrorMessage = "Fecha obligatoria")]
-        public DateTime dateEnd;
+        public DateTime dateEnd=DateTime.Today.AddDays(1);
     }
 }

@@ -1,15 +1,33 @@
 ﻿@page "/fotos"
 @using System.IO;
+@using GestionLaura.Logica
 <div class="card">
     @foreach(var i in byt){
         <img src="@getSouce(i)" alt="Image"/>
+        <button @onclick="@(()=>Eliminar(i))">X</button>
     }
 </div>
 @code {
     [Parameter]
     public List<byte[]> byt{ get; set; }
+    [Parameter]
+    public string? id{ get; set; }
     private string getSouce(byte[] Imagen){
         var base64Str = Convert.ToBase64String(Imagen);
         return $"data:image/png;base64,{base64Str}";
     }
+    private async Task Eliminar(byte[] i)
+    {
+        List<byte[]> aux = new List<byte[]>();
+        var log = new LogLegajo();
+        await log.Cargar();
+        @foreach (var s in byt)
+        {
+            if (s != i)
+                aux.Add(s);
+        }
+        log.Legajos.Where(s => s.Id == id).First().Images = aux;
+        await log.Guardar();
+    }
+
 }

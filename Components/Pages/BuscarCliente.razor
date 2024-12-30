@@ -37,28 +37,30 @@
                 <label>Historial del cliente</label>
                 <InputTextArea @bind-Value="legajo.Historial"/>
             </div>
-                <InputFile OnChange="@AgregarFoto" MaxAllowedSize="10485760" />
+            <InputFile OnChange="@AgregarFoto" MaxAllowedSize="10485760" />
             <div class="row">
                 <button @onclick="Actualizar">Actualizar</button>
             </div>
-            <Fotos byt="@legajo.Images"></Fotos>
-            
+            <Fotos byt="@legajo.Images" id="@legajo.Id"></Fotos>
+
         </EditForm>
-       
+
     }
 </div>
 
 @code {
+    public List<RegistroPersonal> Personals = new List<RegistroPersonal>();
     protected Legajo legajo = new Legajo();
     private LogLegajo logica = new LogLegajo();
+    private LogServ LogServ=new LogServ();
     bool a = false;
     byte[]? Imag;
     List<ImageSource> imgList= new List<ImageSource>();
-    
-    protected void Actualizar()
+
+    protected async Task Actualizar()
     {
         if(legajo!=null)
-            logica.ActualizarLegajos(legajo);
+            await logica.ActualizarLegajos(legajo);
     }
     protected async Task AgregarFoto(InputFileChangeEventArgs e){
         try
@@ -76,10 +78,11 @@
             Console.WriteLine(ex);
         }
     }
-    
+
     protected async Task buscar()
     {
-        if(legajo.Id!=""){
+        await logica.Cargar();
+        if(legajo.Id!=""&&logica.Legajos.Where(d=>d.Id==legajo.Id).Any()){
             legajo = await logica.BuscarLegajo(legajo.Id);
             if(logica.BuscarLegajo(legajo.Id)!=null){
                 a = true;
