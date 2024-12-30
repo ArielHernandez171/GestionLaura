@@ -67,6 +67,13 @@ namespace GestionLaura.Logica
                     where p.Fecha > inicio && p.Fecha < fin
                     select p).ToList();//se retorna una lista de servicios dados en de entre dos fechas
         }
+        public async Task<List<RegistroServs>>ObtenerServiName(string name)
+        {
+            await Cargar();
+            return (from p in registros
+                    where p.ClienteId== name
+                    select p).ToList();
+        }
         public void Descargardo(List<RegistroServs> servs)
         {
             int counter = 2;

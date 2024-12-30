@@ -54,7 +54,7 @@ namespace GestionLaura.Logica
             await Cargar();
             return Legajos;
         }
-        public async void ActualizarLegajos(Legajo legajo)
+        public async Task ActualizarLegajos(Legajo legajo)
         {
             await Cargar();//se cargan los legajos de los clientes
             Legajos.Where(l => l.Id == legajo.Id).First().Name = legajo.Name;
@@ -70,13 +70,13 @@ namespace GestionLaura.Logica
             Legajos.Add(legajo);//se agrega un legajo de un cliente
             await Guardar();//se guarda los cambios
         }
-        public async Task<Legajo?> BuscarLegajo(string Id)
+        public async Task<Legajo> BuscarLegajo(string Id)
         {
             await Cargar();
             if (Legajos.Exists(l=>l.Id==Id) )
                 return Legajos.Where(l => l.Id == Id).First();//retorna el legajo de el cliente en base al id
             else
-                return null;//si no existe el id buscado, retorna null
+                return new Legajo();//si no existe el id buscado, retorna null
         }
     }
 }
