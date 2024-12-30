@@ -6,18 +6,35 @@ using System.Threading.Tasks;
 
 namespace GestionLaura.Clases
 {
-    public class RegistroServs
+    public class RegistroPersonal
     {
-        public string Concepto { get; set; }
-        public float Costo { get; set; }
+        public List<string> Servicios { get; set; }
         public DateTime Fecha { get; set; }
-        public RegistroServs()
+        public RegistroPersonal()
         {
-            Concepto = "";
-            Costo = 0;
+            Servicios = new List<string>();
             Fecha = DateTime.Now;
         }
     }
+    public class RegistroServs
+    {
+        public string Concepto { get; set; }
+        public string ClienteId { get; set; }
+        public float Costo { get; set; }
+        public DateTime Fecha { get; set; }
+        public float PrecioFinal {  get; set; }
+        public List<RegistroPersonal> registroPersonals { get; set; }
+        public RegistroServs()
+        {
+            Concepto = "";
+            ClienteId = "";
+            Costo = 0;
+            PrecioFinal = 0;
+            registroPersonals= new List<RegistroPersonal>();
+            Fecha = DateTime.Now;
+        }
+    }
+
     /*
       * los servicios de los clientes se basan en
       * el concepto(Los que se le hizo)
