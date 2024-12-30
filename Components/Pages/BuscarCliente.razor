@@ -37,9 +37,9 @@
             </div>
             <div class="row">
                 <label>Historial del cliente</label>
-                <InputTextArea @bind-Value="legajo.Historial"/>
+                <InputTextArea @bind-Value="legajo.Historial" accept="image/.jpg,image/.png, image/.jpeg"/>
             </div>
-            <input type="file" OnChange="AgregarFoto" MaxAllowedSize="10485760" />
+            <input type="file" OnChange="AgregarFoto" MaxAllowedSize="1572864" />
             <div class="row">
                 <button @onclick="Actualizar">Actualizar</button>
             </div>
