@@ -3,6 +3,8 @@
 @using System.IO
 @using System.Runtime.InteropServices
 @using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.Maui.Storage
+
 @page "/searchcli"
 <div class="container">
     <h1>Buscar cliente</h1>
@@ -37,7 +39,7 @@
                 <label>Historial del cliente</label>
                 <InputTextArea @bind-Value="legajo.Historial"/>
             </div>
-            <InputFile OnChange="@AgregarFoto" MaxAllowedSize="10485760" />
+            <input type="file" OnChange="AgregarFoto" MaxAllowedSize="10485760" />
             <div class="row">
                 <button @onclick="Actualizar">Actualizar</button>
             </div>
@@ -62,14 +64,16 @@
         if(legajo!=null)
             await logica.ActualizarLegajos(legajo);
     }
-    protected async Task AgregarFoto(InputFileChangeEventArgs e){
+    protected async Task AgregarFoto(ChangeEventArgs e){
         try
         {
-            MemoryStream stream = new MemoryStream();
-            await e.File.OpenReadStream().CopyToAsync(stream);
-            Imag = stream.ToArray();
-            if (Imag != null && legajo != null)
+            var file = (IEnumerable<IBrowserFile>)e.Value;
+            var fil = file.FirstOrDefault();
+            if (fil!=null && legajo != null)
             {
+                var FileName = fil.Name;
+                Imag = new byte[fil.Size];
+                await fil.OpenReadStream().ReadAsync(Imag);
                 legajo.Images.Add(Imag);
             }
         }
