@@ -4,7 +4,7 @@
 @inject NavigationManager nav
 <div class="container-fluid">
     <table  class="align-items-center">
-        <tr class="align-top">
+        <tr>
             <td>Producto</td>
             <td>Tipo de consumo</td>
             <td>Cantidad</td>
@@ -12,7 +12,7 @@
         </tr>
         @foreach (var p in logica.Prod)
         {
-            <tr class="d-block">
+            <tr >
                 <td>@p.Productos</td>
                 <td>@p.Tipo.ToString()</td>
                 @if (p.Tipo.Equals(Tipo.Promedio))

@@ -21,11 +21,11 @@
         <EditForm Model="@registro" OnSubmit="@Guardar">
             <div>
                 <div><label>Id del usuario</label></div>
-                <div><InputText @bind-Value="registro.ClienteId"/></div>
+                <div><InputText @bind-Value="@registro.ClienteId"/></div>
             </div>
             <div>
                 <div><label>Al momento hay un costo @i, Ingrese el precio final</label></div>
-                <div><InputNumber @bind-Value="registro.PrecioFinal"/></div>
+                <div><InputNumber @bind-Value="@registro.PrecioFinal"/></div>
             </div>
             <div>
                 <div><label>Concepto de servicio</label></div>

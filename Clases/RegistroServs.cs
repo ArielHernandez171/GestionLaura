@@ -15,6 +15,7 @@ namespace GestionLaura.Clases
             Servicios = new List<string>();
             Fecha = DateTime.Now;
         }
+       
     }
     public class RegistroServs
     {
@@ -32,6 +33,10 @@ namespace GestionLaura.Clases
             PrecioFinal = 0;
             registroPersonals= new List<RegistroPersonal>();
             Fecha = DateTime.Now;
+        }
+        public override string ToString()
+        {
+            return Concepto+" "+Costo+" "+PrecioFinal+" "+Fecha+" "+ClienteId;
         }
     }
 

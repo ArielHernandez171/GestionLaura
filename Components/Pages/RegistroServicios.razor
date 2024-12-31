@@ -32,7 +32,7 @@
                     <InputText @bind-Value="id"/>
                 </div>
                 <div>
-                    <button type="submit"Buscar por nombre</button>
+                    <button type="submit" onsubmit="@BuscarId">Buscar por nombre</button>
                 </div>
             </div>
         </EditForm>
@@ -46,10 +46,9 @@
                     <td>Id del cliente</td>
                     <td>Servicio</td>
                 </tr>
-                <tr>
-                    @foreach (RegistroServs t in servicios)
-                    {
-
+                @foreach (RegistroServs t in servicios)
+                {
+                    <tr>
                         <td>@t.Fecha</td>
                         <td>@t.Concepto</td>
                         <td>@t.Costo</td>
@@ -58,14 +57,15 @@
                         <td>
                             <p>@Historial(t.registroPersonals,t.Fecha)</p>
                         </td>
-                    }
-                </tr>
+                    </tr>
+                }
+                
             </table>
             <div class="container">
-                <h1>El costo total del periodo fue de: @total en @clientes clientes con unaganancia de @i</h1>
+                <h1>El costo total del periodo fue de: @total en @clientes clientes con un retorno de @i</h1>
             </div>
             <div>
-                <button @onclick="descargar" class="btn btn-primary">Buscar</button>
+                <button @onclick="descargar" class="btn btn-primary">Descargar</button>
             </div>
         }
         @if(clientes==0&&servicios!=null){
@@ -85,7 +85,21 @@
     private LogServ logica = new LogServ();
     public async Task BuscarId()
     {
-        
+        if (id != "")
+        {
+            
+            servicios = await logica.ObtenerServiName(id);
+            if (servicios != null)
+            {
+                foreach (RegistroServs r in servicios)
+                {
+                    total = total + r.Costo;
+                    clientes++;
+                    i += r.PrecioFinal;
+                }
+
+            }
+        }
     }
     private async Task buscar()
     {
