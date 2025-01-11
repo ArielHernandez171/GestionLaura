@@ -88,7 +88,7 @@ namespace GestionLaura.Logica
                 worksheet.Cell("E1").Value = "Id del cliente";
                 foreach (var servo in servs)
                 {
-                    worksheet.Cell("A" + counter).Value = servo.Fecha;
+                    worksheet.Cell("A" + counter).Value = servo.Fecha.ToString();
                     worksheet.Cell("B" + counter).Value = servo.Costo;
                     worksheet.Cell("C" + counter).Value = servo.PrecioFinal;
                     worksheet.Cell("D" + counter).Value = servo.Concepto;
