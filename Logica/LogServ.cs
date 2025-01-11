@@ -83,12 +83,16 @@ namespace GestionLaura.Logica
                 var worksheet = workbook.Worksheets.Add("Servicios");
                 worksheet.Cell("A1").Value = "Fecha";
                 worksheet.Cell("B1").Value = "Costo";
-                worksheet.Cell("C1").Value = "Concepto";
+                worksheet.Cell("C1").Value = "Precio";
+                worksheet.Cell("D1").Value = "Concepto";
+                worksheet.Cell("E1").Value = "Id del cliente";
                 foreach (var servo in servs)
                 {
                     worksheet.Cell("A" + counter).Value = servo.Fecha;
                     worksheet.Cell("B" + counter).Value = servo.Costo;
-                    worksheet.Cell("C" + counter).Value = servo.Concepto;
+                    worksheet.Cell("C" + counter).Value = servo.PrecioFinal;
+                    worksheet.Cell("D" + counter).Value = servo.Concepto;
+                    worksheet.Cell("E" + counter).Value = servo.ClienteId;
                     counter = counter + 2;
                 }
                 workbook.SaveAs(descargar);
