@@ -22,12 +22,22 @@
                 }
                 @if (p.Tipo.Equals(Tipo.Fifo))
                 {
-                    @foreach(var a in p.StocksFIfo)
-                    {
-
-                        <td>@a.Cantidad</td>
-                        <td>@a.Precio</td>
-                    }
+                    <td>
+                        <ul style="list-style:none">
+                            @foreach(var a in p.StocksFIfo)
+                            {
+                                <li>$ @a.Precio</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <ul style="list-style:none">
+                            @foreach (var a in p.StocksFIfo)
+                            {
+                               <li>@a.Precio</li>
+                            }
+                        </ul>
+                    </td>
                 }
                 <td><button class="btn btn-primary" @onclick="(()=>Eliminar(p))">Eliminar</button></td>
                 <td><button class="btn btn-primary" @onclick="(()=>Sumar(p))">Actualizar</button></td>
