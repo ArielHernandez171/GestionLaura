@@ -39,7 +39,7 @@
                 <label>Historial del cliente</label>
                 <InputTextArea @bind-Value="legajo.Historial" Rows="10" />
             </div>
-            <input type="file" OnChange="AgregarFoto" MaxAllowedSize="1572864" accept="image/.jpg,image/.png, image/.jpeg"/>
+            <input type="file" OnChange="AgregarFoto"  accept="image/.jpg,image/.png, image/.jpeg"/>
             <div class="row">
                 <button @onclick="Actualizar">Actualizar</button>
             </div>
@@ -92,8 +92,6 @@
                 a = true;
             }
             else{
-
-
                 await Application.Current.MainPage.DisplayAlert("Alerta","No se encontro el cliente buscado","OK");
             }
         }

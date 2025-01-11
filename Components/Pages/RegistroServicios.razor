@@ -38,28 +38,28 @@
         </EditForm>
         @if(servicios!=null){
             <table>
-                <tr>
+                <tr style="border:1px solid">
                     <td>Fecha</td>
                     <td>Concepto</td>
                     <td>Costo</td>
                     <td>Precio</td>
                     <td>Id del cliente</td>
-                    <td>Servicio</td>
+                    <!--<td>Servicio</td>-->
                 </tr>
                 @foreach (RegistroServs t in servicios)
                 {
-                    <tr>
+                    <tr style="border:1px solid">
                         <td>@t.Fecha</td>
                         <td>@t.Concepto</td>
                         <td>@t.Costo</td>
                         <td>@t.PrecioFinal</td>
                         <td>@t.ClienteId</td>
                         <td>
-                            <p>@Historial(t.registroPersonals,t.Fecha)</p>
+                            @Historial(t.registroPersonals,t.Fecha)
                         </td>
                     </tr>
                 }
-                
+
             </table>
             <div class="container">
                 <h1>El costo total del periodo fue de: @total en @clientes clientes con un retorno de @i</h1>
@@ -85,9 +85,12 @@
     private LogServ logica = new LogServ();
     public async Task BuscarId()
     {
+        i = 0;
+        clientes = 0;
+        total = 0;
         if (id != "")
         {
-            
+
             servicios = await logica.ObtenerServiName(id);
             if (servicios != null)
             {
@@ -103,6 +106,9 @@
     }
     private async Task buscar()
     {
+        i = 0;
+        clientes = 0;
+        total = 0;
         if (models.dateBeg <= models.dateEnd)
             servicios = await logica.ObtenerServiDate(models.dateBeg, models.dateEnd);
         else
@@ -133,11 +139,11 @@
         string c = "";
         foreach (var a in l)
         {
-            if(a.Fecha==f)
+            if(a.Fecha.Equals(f))
                 c = c + " " + a.Servicios;
         }
-        return $"{ c}";
-    }
+        return c;
+    } 
     public class Model
     {
         [Required(ErrorMessage="Fecha obligatoria")]

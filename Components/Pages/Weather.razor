@@ -34,7 +34,7 @@
                         <ul style="list-style:none">
                             @foreach(var a in p.StocksFIfo)
                             {
-                                <li>$ @a.Precio</li>
+                                <li> @a.Cantidad</li>
                             }
                         </ul>
                     </td>
@@ -42,7 +42,7 @@
                         <ul style="list-style:none">
                             @foreach (var a in p.StocksFIfo)
                             {
-                               <li>@a.Precio</li>
+                               <li>$@a.Precio</li>
                             }
                         </ul>
                     </td>
