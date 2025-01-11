@@ -3,26 +3,34 @@
 @using GestionLaura.Logica
 @inject NavigationManager nav
 <div class="container-fluid">
-    <table  class="align-items-center">
-        <tr>
-            <td>Producto</td>
-            <td>Tipo de consumo</td>
-            <td>Cantidad</td>
-            <td>Precio</td>
+    <table  class="align-items-center" style="border-color:black">
+        <tr style="border:1px solid">
+            <td style="margin:3px">Producto</td>
+            <td style="margin:3px">Tipo de consumo</td>
+            <td style="margin:3px">Cantidad</td>
+            <td style="margin:3px">Precio</td>
         </tr>
         @foreach (var p in logica.Prod)
         {
-            <tr >
-                <td>@p.Productos</td>
-                <td>@p.Tipo.ToString()</td>
+            <tr style="margin:3px">
+                    <td style="border:1px solid">@p.Productos</td>
+                @if (p.Tipo==Tipo.Fifo)
+                {
+                    <td  style ="border:1px solid">Orden de ingreso</td>
+                }
+                @if (p.Tipo == Tipo.Promedio)
+                {
+                    <td style="border:1px solid">Promedio</td>
+                }
+                
                 @if (p.Tipo.Equals(Tipo.Promedio))
                 {
-                    <td>@p.StockProd.Cantidad</td>
-                    <td>@p.StockProd.Precio</td>
+                    <td style="border:1px solid">@p.StockProd.Cantidad</td>
+                    <td style="border:1px solid">@p.StockProd.Precio</td>
                 }
                 @if (p.Tipo.Equals(Tipo.Fifo))
                 {
-                    <td>
+                    <td style="border:1px solid">
                         <ul style="list-style:none">
                             @foreach(var a in p.StocksFIfo)
                             {
@@ -30,7 +38,7 @@
                             }
                         </ul>
                     </td>
-                    <td>
+                    <td style="border:1px solid">
                         <ul style="list-style:none">
                             @foreach (var a in p.StocksFIfo)
                             {
@@ -39,13 +47,13 @@
                         </ul>
                     </td>
                 }
-                <td><button class="btn btn-primary" @onclick="(()=>Eliminar(p))">Eliminar</button></td>
-                <td><button class="btn btn-primary" @onclick="(()=>Sumar(p))">Actualizar</button></td>
+                <td style="border:1px solid"><button class="btn btn-primary" @onclick="(()=>Eliminar(p))">Eliminar</button></td>
+                <td style="border:1px solid"><button class="btn btn-primary" @onclick="(()=>Sumar(p))">Actualizar</button></td>
             </tr>
 
         }
     </table>
-    <button class="btn btn-primary" @onclick="Descargar">Descargar</button>
+    <button style="margin:10px" class="btn btn-primary" @onclick="Descargar">Descargar</button>
 </div>
 
 @code {
