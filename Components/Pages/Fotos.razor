@@ -11,7 +11,7 @@
     [Parameter]
     public List<byte[]> byt{ get; set; }
     [Parameter]
-    public string? id{ get; set; }
+    public string id{ get; set; }
     private string getSouce(byte[] Imagen){
         var base64Str = Convert.ToBase64String(Imagen);
         return $"data:image/png;base64,{base64Str}";

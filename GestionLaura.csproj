@@ -22,7 +22,7 @@
         <Nullable>enable</Nullable>
 
         <!-- Display name -->
-        <ApplicationTitle>Gestion Laura</ApplicationTitle>
+        <ApplicationTitle>Gestion</ApplicationTitle>
 
         <!-- App Identifier -->
         <ApplicationId>com.companyname.gestionlaura</ApplicationId>
@@ -44,12 +44,11 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\laura_logo.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
         
 
         <!-- Splash Screen 
         <MauiSplashScreen Include="Resources\Splash\splash.svg"  />-->
-        <MauiSplashScreen Include="Resources\Splash\laura_plash.svg" Color="#512BD4" BaseSize="128,128"/>
+        <MauiSplashScreen Include="Resources\Splash\laura_plash.svg" Color="#dbc8d8" BaseSize="128,128" />
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
         <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
@@ -61,9 +60,16 @@
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
+    <ItemGroup><!--<None Remove="Resources\AppIcon\laura_logo.svg" />
+      <None Remove="Resources\Splash\laura_plash.svg" />-->
+    
+      <None Remove="Resources\AppIcon\appicon.svg" />
+    
+      <None Remove="Resources\AppIcon\appiconfg.svg" />
+    </ItemGroup>
+
     <ItemGroup>
-      <None Remove="Resources\AppIcon\laura_logo.svg" />
-      <None Remove="Resources\Splash\laura_plash.svg" />
+      <MauiIcon Include="Resources\AppIcon\laura_logo.svg" Color="#dbc8d8"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -72,5 +78,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
     </ItemGroup>
+
+    
 
 </Project>
