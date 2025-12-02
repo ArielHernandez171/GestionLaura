@@ -1,0 +1,161 @@
+.titulo-consumos {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 32px;
+    color: #222;
+    font-weight: 700;
+    padding-bottom: 25px;
+}
+
+.consumos-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.tabla-consumos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.fila-consumo {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    align-items: center;
+    padding: 12px 15px;
+    background: #fafafa;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+    transition: 0.2s;
+
+}
+
+    .fila-consumo:hover {
+        background: rgba(255, 79, 163, 0.15);
+    }
+
+.col {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.form-sumar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-number, .input-text {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 120px;
+}
+
+input:focus {
+    border-color: #ff4fa3;
+    outline: none;
+}
+
+.form-guardar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-rosa {
+    background: #ff4fa3;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+    .btn-rosa:hover {
+        background: #e04591;
+    }
+
+.layout-consumos {
+    display: flex;
+    width: 100%;
+    max-width: 1300px;
+    margin: auto;
+    gap: 20px;
+}
+
+.consumos-container {
+    flex: 3; /* 3/4 pantalla */
+}
+
+.servicios-rapidos {
+    flex: 1; /* 1/4 derecha */
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+    .servicios-rapidos h4 {
+        margin: 0 0 10px 0;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+        color: #222;
+    }
+
+.servicio-item {
+    background: #ff4fa3;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: .2s;
+    font-weight: 600;
+}
+
+    .servicio-item:hover {
+        background: #e04591;
+    }
+
+.form-layout {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 40px;
+    margin-top: 20px;
+    
+}
+
+.form-left, .form-right {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.form-left {
+    border: 2px solid #ff7ab8;
+    background: #ffe4f0;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-right {
+    margin-top: 120px;
+}

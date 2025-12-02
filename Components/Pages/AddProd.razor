@@ -4,19 +4,22 @@
 @inject NavigationManager nav
 @using GestionLaura.Logica
 
-<div class="container">
-<h1>Ingreso de @produc.Productos</h1>
-    <EditForm Model="@model" OnSubmit="@Guardar" >
-        <div class="row">
+<div class="ingreso-container">
+    <h1>Ingreso de @d</h1>
+
+    <EditForm Model="@model" OnSubmit="@Guardar">
+        <div class="form-row">
             <label>Introduzca el stock a ingresar</label>
-            <InputNumber  id="Cantidad" @bind-Value="@model.Cantidad"></InputNumber>
+            <input type="number" id="Cantidad" @bind="@model.Cantidad">
         </div>
-        <div class="row">
+
+        <div class="form-row">
             <label>Introduzca el precio del ingreso</label>
-            <InputNumber Min="0" id="Precio" @bind-Value="@model.Precio"></InputNumber>
+            <input type="number" min="0" id="Precio" @bind="@model.Precio">
         </div>
-        <div class="row">
-            <button type="submit" class="btn btn-primary">Confirmar</button>
+
+        <div class="form-row">
+            <button type="submit" class="btn-submit">Confirmar</button>
         </div>
     </EditForm>
 </div>

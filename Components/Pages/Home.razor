@@ -1,5 +1,118 @@
 ﻿@page "/"
 
-<h1>Bienvenida</h1>
+<h1>¡Bienvenida!</h1>
 
+<div class="acciones-container">
 
+    <h3>Servicios Rápidos</h3>
+
+    <!-- NUEVO CLIENTE -->
+    <div class="accion">
+        <button class="accion-btn" onclick="toggleForm('clienteForm')">
+            Nuevo Cliente
+        </button>
+
+        <div id="clienteForm" class="card-form">
+            <div class="form-group">
+                <label>Numero de Identificacion:</label>
+                <input type="number" />
+            </div>
+
+            <div class="form-group">
+                <label>Nombre:</label>
+                <input type="text" />
+            </div>
+
+            <div class="form-group">
+                <label>Apellido:</label>
+                <input type="text" />
+            </div>
+
+            <button class="guardar-btn">Guardar</button>
+        </div>
+    </div>
+
+    <!-- NUEVO PRODUCTO -->
+    <div class="accion">
+        <button class="accion-btn" onclick="toggleForm('productoForm')">
+            Nuevo Producto
+        </button>
+
+        <div id="productoForm" class="card-form">
+            <div class="form-group">
+                <label>Nombre del Producto</label>
+                <input type="text" />
+            </div>
+
+            <div class="form-group">
+                <label>Precio inicial</label>
+                <input type="number" />
+            </div>
+
+            <div class="form-group">
+                <label>Cantidad inicial</label>
+                <input type="number" />
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de actualización</label>
+                <select class="input">
+                    <option>Se lista por ingreso</option>
+                    <option>Se promedia</option>
+                </select>
+            </div>
+
+            <button class="guardar-btn">Guardar</button>
+        </div>
+    </div>
+
+    <!-- NUEVO SERVICIO -->
+    <div class="accion">
+        <button class="accion-btn" onclick="toggleForm('servicioForm')">
+            Nuevo Servicio
+        </button>
+
+        <div id="servicioForm" class="card-form">
+            <div class="form-group">
+                <label>Ingrese Id (opcional)</label>
+                <input type="number" />
+            </div>
+
+            <div class="form-group">
+                <label>Nombre del Servicio</label>
+                <select class="input">
+                    <option>Tintura</option>
+                    <option>Alisado</option>
+                    <option>Depilacion Definitiva</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Precio Final</label>
+                <input type="number" />
+            </div>
+
+            <button class="guardar-btn">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleForm(id) {
+        const el = document.getElementById(id);
+
+        // Si está visible → ocultarlo
+        if (el.style.display === "block") {
+            el.style.display = "none";
+            return;
+        }
+
+        // Ocultar todos
+        document.querySelectorAll(".card-form").forEach(f => {
+            f.style.display = "none";
+        });
+
+        // Mostrar el seleccionado
+        el.style.display = "block";
+    }
+</script>

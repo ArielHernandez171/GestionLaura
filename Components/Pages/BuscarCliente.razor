@@ -4,47 +4,62 @@
 @using System.Runtime.InteropServices
 @using Microsoft.AspNetCore.Components.Forms
 @page "/searchcli"
-<div class="container">
-    <h1>Buscar cliente</h1>
-    <div class="card">
 
+<h3 class="titulo">Buscar Clientes</h3>
+
+<div class="container">
+    <div class="card">
         <EditForm OnSubmit="@buscar" Model="@legajo">
             <div class="row">
                 <label>Id del cliente</label>
-                <InputText @bind-Value="legajo.Id"/>
+                <input type="text" @bind="legajo.Id" />
             </div>
             <div class="row">
                 <button type="submit" class="btn btn-primary">Buscar</button>
             </div>
         </EditForm>
     </div>
+
     @if (a != false)
-    {  
-        <EditForm OnSubmit="Actualizar" Model="legajo">
-            <div class="row">
-                <label>Id del cliente</label>
-                <InputText @bind-Value="legajo.Id"/>
-            </div>
-            <div class="row">
-                <label>Nombre del cliente</label>
-                <InputText @bind-Value="legajo.Name"/>
-            </div>
-            <div class="row">
-                <label>Apellido del cliente</label>
-                <InputText @bind-Value="legajo.SurName"/>
-            </div>
-            <div class="row">
-                <label>Historial del cliente</label>
-                <InputTextArea @bind-Value="legajo.Historial"/>
-            </div>
-                <InputFile OnChange="@AgregarFoto" MaxAllowedSize="10485760" />
-            <div class="row">
-                <button @onclick="Actualizar">Actualizar</button>
-            </div>
-            <Fotos byt="@legajo.Images"></Fotos>
-            
-        </EditForm>
-       
+    {
+        <div class="card">
+            <!-- Nuevo container visual -->
+            <h2>Actualizar cliente</h2>
+
+            <EditForm OnSubmit="Actualizar" Model="legajo">
+
+                <div class="row">
+                    <label>Id del cliente</label>
+                    <input type="text" @bind="legajo.Id" />
+                </div>
+
+                <div class="row">
+                    <label>Nombre del cliente</label>
+                    <input type="text" @bind="legajo.Name" />
+                </div>
+
+                <div class="row">
+                    <label>Apellido del cliente</label>
+                    <input type="text" @bind="legajo.SurName" />
+                </div>
+
+                <div class="row">
+                    <label>Historial del cliente</label>
+                    <textarea @bind="legajo.Historial"></textarea>
+                </div>
+
+                <div class="row">
+                    <input type="file" OnChange="@AgregarFoto" MaxAllowedSize="10485760" />
+                </div>
+
+                <div class="row">
+                    <button @onclick="Actualizar">Actualizar</button>
+                </div>
+
+                <Fotos byt="@legajo.Images"></Fotos>
+
+            </EditForm>
+        </div>
     }
 </div>
 

@@ -2,6 +2,9 @@
 @using GestionLaura.Clases;
 @using GestionLaura.Logica
 @inject NavigationManager nav
+
+<h3 class="titulo">Lista de Productos</h3>
+
 <div class="card">
     <table>
         <tr>
@@ -22,17 +25,22 @@
                 }
                 @if (p.Tipo.Equals(Tipo.Fifo))
                 {
-                    @foreach(var a in p.StocksFIfo)
-                    {
-
-                        <td>@a.Cantidad</td>
-                        <td>@a.Precio</td>
-                    }
+                    <td>
+                        @foreach (var a in p.StocksFIfo)
+                        {
+                            <div>@a.Cantidad</div>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var a in p.StocksFIfo)
+                        {
+                            <div>@a.Precio</div>
+                        }
+                    </td>
                 }
                 <td><button class="btn btn-primary" @onclick="(()=>Eliminar(p))">Eliminar</button></td>
                 <td><button class="btn btn-primary" @onclick="(()=>Sumar(p))">Actualizar</button></td>
             </tr>
-
         }
     </table>
     <button class="btn btn-primary" @onclick="Descargar">Descargar</button>

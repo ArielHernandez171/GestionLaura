@@ -3,31 +3,29 @@
 @using GestionLaura.Logica
 @inject NavigationManager nav
 
+<h3 class="titulo-form">Nuevo cliente</h3>
 
+<div class="form-container">
+    <EditForm OnSubmit="@Guardar" Model="@model">
 
-<div class="container">
-    <h3>Nuevo cliente</h3>
-    <div>
-        
-        <EditForm OnSubmit="@Guardar" Model="@model">
-            
-            <div class="row">
-                <label>Numero de identificacion</label>
-                <InputText id="Id" @bind-Value="model.Id"/>
-            </div>
-            <div class="row">
-                <label>Nombre</label>
-                <InputText id="Name" @bind-Value="model.Name"/>
-            </div>
-            <div class="row">
-                <label>Apellido</label>
-                <InputText id="SurName" @bind-Value="model.SurName"/>
-            </div>
-            <div class="row">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-            </div>
-        </EditForm>
-    </div>
+        <div class="form-group">
+            <label for="Id">Número de identificación</label>
+            <input type="text" id="Id" class="input" @bind="model.Id" />
+        </div>
+
+        <div class="form-group">
+            <label for="Name">Nombre</label>
+            <input type="text" id="Name" class="input" @bind="model.Name" />
+        </div>
+
+        <div class="form-group">
+            <label for="SurName">Apellido</label>
+            <input type="text" id="SurName" class="input" @bind="model.SurName" />
+        </div>
+
+        <button type="submit" class="btn-guardar">Guardar</button>
+
+    </EditForm>
 </div>
 
 @code {

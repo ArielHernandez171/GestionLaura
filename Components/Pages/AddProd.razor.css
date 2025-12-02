@@ -1,0 +1,65 @@
+.ingreso-container {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    font-family: "Segoe UI", sans-serif;
+}
+
+    .ingreso-container h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+        font-size: 26px;
+        font-weight: 700;
+    }
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+    .form-row label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #444;
+    }
+
+    .form-row input {
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .form-row input:focus {
+            border-color: #ff4fa3;
+            box-shadow: 0 0 6px rgba(255, 79, 163, 0.4);
+            outline: none;
+        }
+
+.btn-submit {
+    width: 100%;
+    background: #ff4fa3;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .btn-submit:hover {
+        background: #e84393;
+        transform: translateY(-2px);
+    }
+
+    .btn-submit:active {
+        transform: scale(0.98);
+    }

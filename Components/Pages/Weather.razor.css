@@ -1,0 +1,66 @@
+.titulo {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 32px;
+    color: #222;
+    font-weight: 700;
+}
+
+/* === CONTENEDOR DE LA CARD === */
+.card {
+    width: 90%;
+    margin: 30px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    overflow-x: auto;
+}
+
+/* === TABLA === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+    table tr:first-child {
+        background: #ff4fa3;
+        color: white;
+        font-weight: bold;
+    }
+
+    table tr:nth-child(even) {
+        background: #f7f7f7;
+    }
+    
+    table tr:hover {
+        background: rgba(255, 79, 163, 0.15);
+    }
+
+    table td, table th {
+        padding: 14px 12px;
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+/* === BOTONES === */
+.btn-primary {
+    background-color: #ff4fa3 !important;
+    border: none !important;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: bold;
+    color: white !important;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .btn-primary:hover {
+        background-color: #e53d8d !important;
+    }
+
+/* Botón Descargar al final */
+.card > .btn-primary {
+    margin-top: 20px;
+    width: 200px;
+}

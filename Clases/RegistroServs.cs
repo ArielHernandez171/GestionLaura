@@ -9,7 +9,7 @@ namespace GestionLaura.Clases
     public class RegistroServs
     {
         public string Concepto { get; set; }
-        public float Costo { get; set; }
+        public float? Costo { get; set; }
         public DateTime Fecha { get; set; }
         public RegistroServs()
         {

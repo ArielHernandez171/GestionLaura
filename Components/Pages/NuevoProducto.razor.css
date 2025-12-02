@@ -1,0 +1,70 @@
+/* Contenedor general del formulario — ahora más grande */
+.form-container {
+    width: 60%;
+    min-width: 480px;
+    max-width: 720px;
+    margin: 40px auto;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Título */
+.titulo-form {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 32px;
+    color: #222;
+    font-weight: 700;
+}
+
+/* Grupo del formulario */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/* Etiquetas */
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Inputs y Select — redondeados */
+.input {
+    padding: 10px 10px;
+    font-size: 17px;
+    border-radius: 18px !important; /* REDONDEADO */
+    border: 1.5px solid #bfbfbf;
+    transition: all 0.2s ease;
+    background-color: #fafafa;
+}
+
+.input:focus {
+    border-color: #ff4fa3; /* Rosa suave */
+    box-shadow: 0 0 6px rgba(255, 79, 163, 0.4);
+    outline: none;
+}
+
+/* Botón rosa */
+.btn-guardar {
+    width: 100%;
+    padding: 15px;
+    background: #ff4fa3;        /* Rosa vibrante */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 18px;        /* Redondeado */
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* Hover rosa más oscuro */
+.btn-guardar:hover {
+    background: #e53d8d;        /* Un tono más oscuro */
+}

@@ -1,46 +1,46 @@
 ﻿@page "/newprod"
 @using GestionLaura.Clases
 @using GestionLaura.Logica
-<h3>Nuevo producto</h3>
+@inject IJSRuntime js
 
-<div class="container">
-    <div class="align-self-auto">
-        <EditForm Model="@model" OnSubmit="@submit">
+<h3 class="titulo-form">Nuevo producto</h3>
 
-            <div class="row">
-                <label>Ingrese el nombre del Producto</label>
-                <InputText id="Nombre" @bind-Value="model.Productos" />
-            </div>
-            <div class="row">
-                <label>Ingrese el Precio inicial del Producto</label>
-                <InputNumber id="precio" @bind-Value="model.StockProd.Precio" />
-            </div>
-            <div class="row">
-                <label>Ingrese la cantidad inicial</label>
-                <InputNumber id="cantidad" @bind-Value="model.StockProd.Cantidad" />
-            </div>
-            <div class="row">
-                <label>Ingrese el tipo de actualizacion del producto</label>
-                <div class="col">
-                    <InputSelect id="tipo" @bind-Value="model.Tipo">
-                        <option value="@Tipo.Fifo">Se lista por ingreso</option>
-                        <option value="@Tipo.Promedio">Se promedia</option>
-                    </InputSelect>
-                </div>
-            </div>
-            <br>
-            <div class="row" margin="2px">
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-        </EditForm>
-    </div>
+<div class="form-container">
+    <EditForm Model="@model" OnSubmit="@submit">
+
+        <div class="form-group">
+            <label for="Nombre">Nombre del Producto</label>
+            <input type="text" id="Nombre" class="input" @bind="model.Productos" />
+        </div>
+
+        <div class="form-group">
+            <label for="precio">Precio inicial</label>
+            <input type="number" id="precio" class="input" @bind="model.StockProd.Precio" />
+        </div>
+
+        <div class="form-group">
+            <label for="cantidad">Cantidad inicial</label>
+            <input type="number" id="cantidad" class="input" @bind="model.StockProd.Cantidad" />
+        </div>
+
+        <div class="form-group">
+            <label for="tipo">Tipo de actualización</label>
+            <select id="tipo" class="input" @bind="model.Tipo">
+                <option value="@Tipo.Fifo">Se lista por ingreso</option>
+                <option value="@Tipo.Promedio">Se promedia</option>
+            </select>
+        </div>
+
+        <button class="btn-guardar" type="submit">Guardar</button>
+
+    </EditForm>
 </div>
-
 
 @code {
     public Producto model = new Producto();
     public Producto aux = new Producto();
     public LogProductos logica = new LogProductos();
+
     public async Task submit()
     {
         aux = model;
@@ -51,6 +51,6 @@
         }
         await logica.GuardarProd(model);
         model = new Producto();
-        await Application.Current.MainPage.DisplayAlert("Atencion", "El producto se guardo", "OK");
+        await js.InvokeVoidAsync("alert");
     }
 }

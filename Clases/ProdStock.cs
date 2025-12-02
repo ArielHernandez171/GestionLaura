@@ -8,13 +8,9 @@ namespace GestionLaura.Clases
 {
     public class ProdStock
     {
-        public float Precio { get; set; }
-        public float Cantidad { get; set; }
-        public ProdStock()
-        {
-            Precio=0;
-            Cantidad = 0;
-        }
+        public float? Precio { get; set; }
+        public float? Cantidad { get; set; }
+        
         /*
          * Refiere al stock del producto
          * siendo cantidad la cantidad de unidades

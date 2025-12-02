@@ -1,0 +1,111 @@
+.titulo {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 32px;
+    color: #222;
+    font-weight: 700;
+    padding-bottom: 25px;
+}
+
+/* Contenedor general */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    border-radius: 20px;
+}
+
+/* Estilo de las tarjetas */
+.card {
+    background: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+/* Etiquetas */
+label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+/* Inputs */
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #cfcfcf;
+    font-size: 16px;
+    margin-bottom: 15px;
+    transition: border-color .2s;
+}
+
+    input[type="date"]:focus {
+        border-color: #ff4fa3;
+        outline: none;
+    }
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #cfcfcf;
+    font-size: 16px;
+    margin-bottom: 15px;
+    transition: border-color .2s;
+}
+
+    input[type="number"]:focus {
+        border-color: #ff4fa3;
+        outline: none;
+    }
+
+/* Botones */
+button,
+.btn {
+    background-color: #ff4fa3;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    transition: background-color .2s ease;
+}
+
+    button:hover,
+    .btn:hover {
+        background-color: #e04491; /* Un poco más oscuro del #ff4fa3 */
+    }
+
+/* Resultados */
+.row-cols-auto {
+    background: #fdf5fa;
+    border-left: 4px solid #ff4fa3;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+    .row-cols-auto p {
+        margin: 3px 0;
+        font-size: 15px;
+    }
+
+/* Texto final */
+h3 {
+    text-align: center;
+    margin-top: 20px;
+    color: #444;
+}
+
+.container p {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
