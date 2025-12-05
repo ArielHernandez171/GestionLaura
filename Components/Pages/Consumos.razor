@@ -1,5 +1,6 @@
 ﻿@using GestionLaura.Logica
 @using GestionLaura.Clases
+@inject IJSRuntime js
 
 @page "/Consumo"
 
@@ -120,7 +121,7 @@
     {
         if (prodStock.Cantidad > stocks.Where(s => s.Productos == n).First().StockProd.Cantidad)
         {
-            await Application.Current.MainPage.DisplayAlert("Alerta", "El producto no se sumo por falta de stock", "OK");
+            await js.InvokeVoidAsync("alerta");
             return;
         }
 

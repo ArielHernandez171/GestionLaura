@@ -2,6 +2,7 @@
 @using GestionLaura.Clases;
 @using GestionLaura.Logica
 @inject NavigationManager nav
+@inject IJSRuntime js
 
 <h3 class="titulo">Lista de Productos</h3>
 
@@ -55,10 +56,13 @@
     public void Sumar(Producto p){
         string d=p.Productos;
         nav.NavigateTo($"/addprod/{d}");
-        
+
     }
     public async Task Eliminar(Producto p)
     {
+        bool result = await js.InvokeAsync<bool>("eliminar");
+        if (!result)
+            return;
         logica.Prod.Remove(p);
         await logica.Guardar();
     }

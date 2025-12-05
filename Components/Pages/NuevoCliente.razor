@@ -2,6 +2,7 @@
 @using GestionLaura.Clases
 @using GestionLaura.Logica
 @inject NavigationManager nav
+@inject IJSRuntime js
 
 <h3 class="titulo-form">Nuevo cliente</h3>
 
@@ -35,6 +36,6 @@
         
         await logica.NuevoLegajo(model);
         nav.NavigateTo("/");
-        
+        await js.InvokeVoidAsync("guardar");
     }
 }

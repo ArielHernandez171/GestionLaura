@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inject NavigationManager nav
 @using GestionLaura.Logica
+@inject IJSRuntime js
 
 <div class="ingreso-container">
     <h1>Ingreso de @d</h1>
@@ -35,8 +36,9 @@
     {
         LogProductos productos = new LogProductos();
         await productos.AddProd(model,produc.Productos);
+        await js.InvokeVoidAsync("guardar");
 
-        nav.NavigateTo("/");
+        nav.NavigateTo("/weather");
     }
     protected async override void OnInitialized()
     {
